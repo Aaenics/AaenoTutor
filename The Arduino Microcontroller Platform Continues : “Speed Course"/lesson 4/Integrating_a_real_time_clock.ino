@@ -9,22 +9,17 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 //6=SCL pin, 7=SDA pin, 8=Reset pin
 virtuabotixRTC myRTC(6, 7, 8);
 
-//the piezo buzzer for the alarm
-int buzzer = 5;
-
 void setup()  {
   Serial.begin(9600);
   lcd.init();
   lcd.backlight();
   lcd.clear();
-  pinMode(buzzer, OUTPUT);
 
 
   // Set the current date, and time in the following format:
   // seconds, minutes, hours, day of the week, day of the month, month, year
-  myRTC.setDS1302Time(00, 20, 12, 4, 18, 12, 2020);
+   //myRTC.setDS1302Time(00, 46, 19, 4, 17, 12, 2020);
   //The time is set once when the program runs
-  //comment this code once you are done setting it and run the code again.
 }
 
 void loop()  {
@@ -49,47 +44,36 @@ void loop()  {
   //start printing on LCD screen
   //Time first
   lcd.clear();
-  lcd.setCursor(0, 0);
+  lcd.setCursor(0,0);
   lcd.print("TIME:");
 
-  lcd.setCursor(6, 0);
+  lcd.setCursor(6,0);
   lcd.print(myRTC.hours);
-  lcd.setCursor(8, 0);
+  lcd.setCursor(8,0);
   lcd.print(":");
-
-  lcd.setCursor(9, 0);
+  
+  lcd.setCursor(9,0);
   lcd.print(myRTC.minutes);
-  lcd.setCursor(11, 0);
+  lcd.setCursor(11,0);
   lcd.print(":");
-
-  lcd.setCursor(12, 0);
+  
+  lcd.setCursor(12,0);
   lcd.print(myRTC.seconds);
 
   //Date below it
-  lcd.setCursor(0, 1);
+  lcd.setCursor(0,1);
   lcd.print("DATE:");
-  lcd.setCursor(6, 1);
+  lcd.setCursor(6,1);
   lcd.print(myRTC.dayofmonth);
-  lcd.setCursor(8, 1);
+  lcd.setCursor(8,1);
   lcd.print("/");
-  lcd.setCursor(9, 1);
+  lcd.setCursor(9,1);
   lcd.print(myRTC.month);
-  lcd.setCursor(11, 1);
+  lcd.setCursor(11,1);
   lcd.print("/");
-  lcd.setCursor(12, 1);
+  lcd.setCursor(12,1);
   lcd.print(myRTC.year);
-
-  //check if alarm time is due
-  if (myRTC.hours == 12 && myRTC.minutes == 30) {
-    digitalWrite(buzzer, HIGH);
-    delay(1000);
-    digitalWrite(buzzer, LOW);
-    delay(500);
-    digitalWrite(buzzer, HIGH);
-    delay(1000);
-    digitalWrite(buzzer, LOW);
-  }
-
+  
   // Delay so the program doesn't print non-stop
-  delay(1000);
-}
+  delay( 1000);
+  }
